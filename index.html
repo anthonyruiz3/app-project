@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Tracker Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome Back!</h1>
+        <nav>
+            <a href="shop.html" class="shop-link">Shop</a>
+        </nav>
+        <div class="currency">
+            <span>💰 </span>
+            <span id="currency-display">0</span>
+        </div>
+    </div>
+
+    <div class="stats-section">
+        <div class="stat-card">
+            <h3>Goals Completed Today</h3>
+            <span id="completed-today">0</span>
+        </div>
+        <div class="stat-card">
+            <h3>Current Streak</h3>
+            <span id="current-streak">0 days</span>
+        </div>
+        <div class="stat-card">
+            <h3>Total Coins Earned</h3>
+            <span id="total-coins">0</span>
+        </div>
+    </div>
+
+    <div class="goals-dashboard">
+        <h2>Today's Goals</h2>
+        <div id="goals-grid">
+            <!-- Goals will be added here by JavaScript -->
+        </div>
+    </div>
+
+    <div class="add-goal-section">
+        <h3>+ Add Your Own Goal</h3>
+        <input type="text" id="goal-name" placeholder="What's your goal?">
+        <input type="number" id="goal-target" placeholder="How many?">
+        <button id="add-goal-btn">Add Goal</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
