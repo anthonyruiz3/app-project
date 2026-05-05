@@ -207,3 +207,48 @@ function updateGoal(goal, goalText, amount) {
         }
     }
 }
+
+// Function to add custom goals
+function addCustomGoal() {
+    // Get the values from the input fields
+    let goalName = document.getElementById("goal-name").value;
+    let goalTarget = document.getElementById("goal-target").value;
+    
+    // Check if both fields have values
+    if (goalName && goalTarget) {
+        // Create a new goal object
+        let newGoal = {
+            name: goalName,
+            target: parseInt(goalTarget), // Convert text to number
+            current: 0,
+            reward: 10 // Give 10 coins for custom goals
+        };
+        
+        // Add the new goal to our goals array
+        presetGoals.push(newGoal);
+        
+        // Clear the input fields
+        document.getElementById("goal-name").value = "";
+        document.getElementById("goal-target").value = "";
+        
+        // Refresh the goals display to show the new goal
+        refreshGoalsDisplay();
+        
+        alert("Goal added successfully!");
+    } else {
+        alert("fill in the amount and goal");
+    }
+}
+
+// Function to refresh the goals display
+function refreshGoalsDisplay() {
+    // Clear the current goals
+    let goalsGrid = document.getElementById("goals-grid");
+    goalsGrid.innerHTML = "";
+    
+    // Show all goals again (including the new one)
+    showGoals();
+}
+
+// Connect the button to the function
+document.getElementById("add-goal-btn").addEventListener("click", addCustomGoal);
