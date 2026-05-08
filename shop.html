@@ -3,9 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shop - Goal Tracker</title>
+    <link rel="stylesheet" href="shop.styles.css">
 </head>
 <body>
-    
+    <div class="header">
+        <a href="index.html" class="back-button">← Back to Home</a>
+        <h1>Shop</h1>
+        <div class="currency">
+            <span>💰 </span>
+            <span id="shop-currency-display">0</span>
+        </div>
+    </div>
+
+    <div class="shop-container">
+        <h2>Productivity Power-ups</h2>
+        <div class="shop-grid">
+            
+            <div class="shop-item">
+                <h3>🛡️ Streak Shield</h3>
+                <p>Protects your streak if you miss one day</p>
+                <div class="item-footer">
+                    <span class="price">50 coins</span>
+                    <button onclick="buyItem(50, 'Streak Shield')">Buy</button>
+                </div>
+            </div>
+
+            <div class="shop-item">
+                <h3>💎 Double Coins</h3>
+                <p>Earn 2x coins for the next 3 days</p>
+                <div class="item-footer">
+                    <span class="price">75 coins</span>
+                    <button onclick="buyItem(75, 'Double Coins')">Buy</button>
+                </div>
+            </div>
+
+            <div class="shop-item">
+                <h3>📦 New Goal Pack</h3>
+                <p>Unlocks 5 new preset goals</p>
+                <div class="item-footer">
+                    <span class="price">30 coins</span>
+                    <button onclick="buyItem(30, 'New Goal Pack')">Buy</button>
+                </div>
+            </div>
+
+            <div class="shop-item">
+                <h3>🏆 Achievement Badge</h3>
+                <p>Cool badges to show off your progress</p>
+                <div class="item-footer">
+                    <span class="price">20 coins</span>
+                    <button onclick="buyItem(20, 'Achievement Badge')">Buy</button>
+                </div>
+            </div>
+
+            <div class="shop-item">
+                <h3>🌙 Dark Theme</h3>
+                <p>Changes your app to dark mode</p>
+                <div class="item-footer">
+                    <span class="price">40 coins</span>
+                    <button onclick="buyItem(40, 'Dark Theme')">Buy</button>
+                </div>
+            </div>
+
+            <div class="shop-item">
+                <h3>⚡ Progress Booster</h3>
+                <p>Start tomorrow with some goals partially complete</p>
+                <div class="item-footer">
+                    <span class="price">60 coins</span>
+                    <button onclick="buyItem(60, 'Progress Booster')">Buy</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="shop.js"></script>
 </body>
 </html>

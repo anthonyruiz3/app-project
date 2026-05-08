@@ -1,6 +1,15 @@
 console.log("Script started");
 
-let presetGoals = [
+function loadCoins() {
+    let savedCoins = localStorage.getItem("userCoins");
+    return savedCoins ? parseInt(savedCoins) : 0;
+}
+
+function saveCoins(coins) {
+    localStorage.setItem("userCoins", coins);
+}
+
+let presetGoals =  loadGoals();
     {
         name: "Drink 8 glasses of water",
         target: 8,
@@ -33,15 +42,17 @@ let presetGoals = [
     }
 ];
 
-let userCoins = 0;
+let userCoins = loadCoins();
 let completedToday = 0;
 
-// Update displays
+
 function updateStats() {
     document.getElementById("currency-display").innerText = userCoins;
     document.getElementById("completed-today").innerText = completedToday;
     document.getElementById("total-coins").innerText = userCoins;
+    saveCoins(userCoins); 
 }
+
 
 // Confetti function
 function showConfetti() {
@@ -231,7 +242,7 @@ function addCustomGoal() {
         document.getElementById("goal-name").value = "";
         document.getElementById("goal-target").value = "";
         
-        // Refresh the goals display to show the new goal
+       
         refreshGoalsDisplay();
         
         alert("Goal added successfully!");
@@ -240,15 +251,64 @@ function addCustomGoal() {
     }
 }
 
-// Function to refresh the goals display
+
 function refreshGoalsDisplay() {
     // Clear the current goals
     let goalsGrid = document.getElementById("goals-grid");
     goalsGrid.innerHTML = "";
     
-    // Show all goals again (including the new one)
+
     showGoals();
 }
 
-// Connect the button to the function
+
 document.getElementById("add-goal-btn").addEventListener("click", addCustomGoal);
+
+// Save goals to local storage
+function saveGoals() {
+    localStorage.setItem("presetGoals", JSON.stringify(presetGoals));
+}
+
+// Load goals from local storage
+function loadGoals() {
+    let savedGoals = localStorage.getItem("presetGoals");
+    
+    if (savedGoals) {
+        return JSON.parse(savedGoals);
+    } else {
+        // Return default goals if nothing saved
+        return [
+            {
+                name: "Drink 8 glasses of water",
+                target: 8,
+                current: 0,
+                reward: 10
+            },
+            {
+                name: "Do 10 pushups", 
+                target: 10,
+                current: 0,
+                reward: 15
+            },
+            {
+                name: "Walk 10,000 steps",
+                target: 10000,
+                current: 0,
+                reward: 20
+            },
+            {
+                name: "Read for 30 minutes",
+                target: 30,
+                current: 0,
+                reward: 12
+            },
+            {
+                name: "Sleep 8 hours",
+                target: 8,
+                current: 0,
+                reward: 10
+            }
+        ];
+    }
+}
+
