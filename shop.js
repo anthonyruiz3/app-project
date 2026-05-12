@@ -39,5 +39,59 @@ function buyItem(cost, itemName) {
     }
 }
 
+// Buy an item
+function buyItem(cost, itemName) {
+    if (userCoins >= cost) {
+        userCoins = userCoins - cost;
+        saveCoins(userCoins);
+        updateCoinDisplay();
+        
+        // Check which item was bought
+        if (itemName === "Dark Theme") {
+            activateDarkTheme();
+        }
+        
+        alert("You bought " + itemName + "! You have " + userCoins + " coins left.");
+    } else {
+        let needed = cost - userCoins;
+        alert("Not enough coins! You need " + needed + " more coins to buy " + itemName + ".");
+    }
+}
+
+// Activate dark theme
+function activateDarkTheme() {
+    localStorage.setItem("darkTheme", "true");
+    applyDarkTheme();
+}
+
+// Apply dark theme styles
+function applyDarkTheme() {
+    document.body.style.backgroundColor = "#1a1a1a";
+    
+    let header = document.querySelector(".header");
+    header.style.backgroundColor = "#2d2d2d";
+    
+    let shopItems = document.querySelectorAll(".shop-item");
+    for (let i = 0; i < shopItems.length; i++) {
+        shopItems[i].style.backgroundColor = "#2d2d2d";
+        shopItems[i].style.color = "#ffffff";
+    }
+    
+    let shopContainer = document.querySelector(".shop-container h2");
+    shopContainer.style.color = "#ffffff";
+}
+
+// Check if dark theme is active when page loads
+function checkDarkTheme() {
+    let darkThemeActive = localStorage.getItem("darkTheme");
+    if (darkThemeActive === "true") {
+        applyDarkTheme();
+    }
+}
+
+// Call this when page loads
+checkDarkTheme();
+
+
 // Show coins when page loads
 updateCoinDisplay();

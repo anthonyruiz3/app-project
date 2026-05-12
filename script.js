@@ -9,7 +9,7 @@ function saveCoins(coins) {
     localStorage.setItem("userCoins", coins);
 }
 
-let presetGoals =  loadGoals();
+let presetGoals =  [
     {
         name: "Drink 8 glasses of water",
         target: 8,
@@ -309,6 +309,18 @@ function loadGoals() {
                 reward: 10
             }
         ];
+    }
+}
+
+function resetApp() {
+    localStorage.clear();
+    location.reload();
+}
+
+function resetApp() {
+    if (confirm("Are you sure? This will delete ALL your progress and coins!")) {
+        localStorage.clear();
+        location.reload();
     }
 }
 
