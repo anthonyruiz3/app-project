@@ -54,7 +54,40 @@ function updateStats() {
 }
 
 
-// Confetti function
+
+function applyDarkTheme() {
+    document.body.style.backgroundColor = "#1a1a1a";
+    
+    let header = document.querySelector(".header");
+    header.style.backgroundColor = "#2d2d2d";
+    
+    let statsCards = document.querySelectorAll(".stat-card");
+    for (let i = 0; i < statsCards.length; i++) {
+        statsCards[i].style.backgroundColor = "#2d2d2d";
+        statsCards[i].style.color = "#ffffff";
+    }
+    
+    let goalsDashboard = document.querySelector(".goals-dashboard h2");
+    goalsDashboard.style.color = "#ffffff";
+    
+    let addGoalSection = document.querySelector(".add-goal-section");
+    addGoalSection.style.backgroundColor = "#2d2d2d";
+    addGoalSection.style.color = "#ffffff";
+}
+
+
+function checkDarkTheme() {
+    let darkThemeActive = localStorage.getItem("darkTheme");
+    if (darkThemeActive === "true") {
+        applyDarkTheme();
+    }
+}
+
+
+checkDarkTheme();
+
+
+
 function showConfetti() {
     for (let i = 0; i < 50; i++) {
         let confetti = document.createElement("div");
@@ -83,7 +116,7 @@ function showConfetti() {
     }
 }
 
-// Show goals in vertical boxes
+
 function showGoals() {
     let goalsGrid = document.getElementById("goals-grid");
     
@@ -127,7 +160,7 @@ function showGoals() {
     }
 }
 
-// Start the app
+
 showGoals();
 updateStats();
 
@@ -137,7 +170,7 @@ function showGoals() {
     for (let i = 0; i < presetGoals.length; i++) {
         let goal = presetGoals[i];
         
-        // Create the main container for each goal
+       
         let goalBox = document.createElement("div");
         goalBox.style.backgroundColor = "white";
         goalBox.style.padding = "20px";
@@ -147,30 +180,30 @@ function showGoals() {
         goalBox.style.justifyContent = "space-between";
         goalBox.style.alignItems = "center";
         
-        // Create the text that shows goal progress
+        
         let goalText = document.createElement("span");
         goalText.innerText = goal.name + " (" + goal.current + "/" + goal.target + ")";
         goalText.style.fontSize = "18px";
         
-        // Create container to hold all buttons
+        
         let buttonContainer = document.createElement("div");
         
-        // Check what type of goal this is and create appropriate buttons
+       
         if (goal.name.includes("Read") || goal.name.includes("Sleep")) {
-            // For reading/sleeping - create "Done" button
+            
             let doneButton = document.createElement("button");
             doneButton.innerText = "Done";
-            doneButton.style.backgroundColor = "#2196F3"; // Blue color
+            doneButton.style.backgroundColor = "#2196F3"; 
             
             doneButton.addEventListener("click", function() {
-                // Set current to equal target (marks as complete)
+                
                 updateGoal(goal, goalText, goal.target);
             });
             
             buttonContainer.appendChild(doneButton);
             
         } else if (goal.target >= 1000) {
-            // For big numbers like steps
+            
             let add100Button = document.createElement("button");
             add100Button.innerText = "+100";
             add100Button.addEventListener("click", function() {
@@ -187,7 +220,7 @@ function showGoals() {
             buttonContainer.appendChild(add1000Button);
             
         } else {
-            // For smaller numbers like water glasses
+            
             let addButton = document.createElement("button");
             addButton.innerText = "+1";
             addButton.addEventListener("click", function() {
@@ -196,7 +229,7 @@ function showGoals() {
             buttonContainer.appendChild(addButton);
         }
         
-        // Add everything to the page
+        
         goalBox.appendChild(goalText);
         goalBox.appendChild(buttonContainer);
         goalsGrid.appendChild(goalBox);
@@ -219,26 +252,26 @@ function updateGoal(goal, goalText, amount) {
     }
 }
 
-// Function to add custom goals
+
 function addCustomGoal() {
-    // Get the values from the input fields
+  
     let goalName = document.getElementById("goal-name").value;
     let goalTarget = document.getElementById("goal-target").value;
     
-    // Check if both fields have values
+    
     if (goalName && goalTarget) {
-        // Create a new goal object
+        
         let newGoal = {
             name: goalName,
-            target: parseInt(goalTarget), // Convert text to number
+            target: parseInt(goalTarget), 
             current: 0,
-            reward: 10 // Give 10 coins for custom goals
+            reward: 10 
         };
         
-        // Add the new goal to our goals array
+       
         presetGoals.push(newGoal);
         
-        // Clear the input fields
+       
         document.getElementById("goal-name").value = "";
         document.getElementById("goal-target").value = "";
         
@@ -253,7 +286,7 @@ function addCustomGoal() {
 
 
 function refreshGoalsDisplay() {
-    // Clear the current goals
+    
     let goalsGrid = document.getElementById("goals-grid");
     goalsGrid.innerHTML = "";
     
@@ -264,19 +297,19 @@ function refreshGoalsDisplay() {
 
 document.getElementById("add-goal-btn").addEventListener("click", addCustomGoal);
 
-// Save goals to local storage
+
 function saveGoals() {
     localStorage.setItem("presetGoals", JSON.stringify(presetGoals));
 }
 
-// Load goals from local storage
+
 function loadGoals() {
     let savedGoals = localStorage.getItem("presetGoals");
     
     if (savedGoals) {
         return JSON.parse(savedGoals);
     } else {
-        // Return default goals if nothing saved
+       
         return [
             {
                 name: "Drink 8 glasses of water",
@@ -323,4 +356,11 @@ function resetApp() {
         location.reload();
     }
 }
+
+let goalPack1 = [
+    {name: "Meditate for 10 minutes", target: 10, current: 0, reward: 12},
+    {name: "Eat 5 servings of fruits/vegetables", target: 5, current: 0, reward: 15},
+    {name: "Study for 45 minutes", target: 45, current: 0, reward: 18}
+];
+
 

@@ -1,54 +1,56 @@
+console.log("Script started");
 
 function loadCoins() {
     let savedCoins = localStorage.getItem("userCoins");
     
     if (savedCoins) {
-        // If coins exist in storage, use them
         return parseInt(savedCoins);
     } else {
-        // If no coins saved, start with 0
         return 0;
     }
 }
 
-// Save coins to local storage
 function saveCoins(coins) {
     localStorage.setItem("userCoins", coins);
 }
 
-// Get current coins
 let userCoins = loadCoins();
 
-// Update the coin display on the page
 function updateCoinDisplay() {
     document.getElementById("shop-currency-display").innerText = userCoins;
 }
 
-// Buy an item
-function buyItem(cost, itemName) {
-    if (userCoins >= cost) {
-        // User has enough coins
-        userCoins = userCoins - cost;
-        saveCoins(userCoins);
-        updateCoinDisplay();
-        alert("You bought " + itemName + "! You have " + userCoins + " coins left.");
-    } else {
-        // Not enough coins
-        let needed = cost - userCoins;
-        alert("Not enough coins! You need " + needed + " more coins to buy " + itemName + ".");
+let goalPack1 = [
+    {name: "Meditate for 10 minutes", target: 10, current: 0, reward: 12},
+    {name: "Eat 5 servings of fruits/vegetables", target: 5, current: 0, reward: 15},
+    {name: "Study for 45 minutes", target: 45, current: 0, reward: 18},
+    {name: "Drink a healthy smoothie", target: 1, current: 0, reward: 10},
+    {name: "Practice a hobby for 20 minutes", target: 20, current: 0, reward: 12}
+];
+
+function addGoalPack() {
+    let currentGoals = localStorage.getItem("presetGoals");
+    let goalsArray = currentGoals ? JSON.parse(currentGoals) : [];
+    
+    for (let i = 0; i < goalPack1.length; i++) {
+        goalsArray.push(goalPack1[i]);
     }
+    
+    localStorage.setItem("presetGoals", JSON.stringify(goalsArray));
 }
 
-// Buy an item
 function buyItem(cost, itemName) {
     if (userCoins >= cost) {
         userCoins = userCoins - cost;
         saveCoins(userCoins);
         updateCoinDisplay();
         
-        // Check which item was bought
         if (itemName === "Dark Theme") {
             activateDarkTheme();
+        }
+        
+        if (itemName === "New Goal Pack") {
+            addGoalPack();
         }
         
         alert("You bought " + itemName + "! You have " + userCoins + " coins left.");
@@ -58,13 +60,11 @@ function buyItem(cost, itemName) {
     }
 }
 
-// Activate dark theme
 function activateDarkTheme() {
     localStorage.setItem("darkTheme", "true");
     applyDarkTheme();
 }
 
-// Apply dark theme styles
 function applyDarkTheme() {
     document.body.style.backgroundColor = "#1a1a1a";
     
@@ -81,7 +81,6 @@ function applyDarkTheme() {
     shopContainer.style.color = "#ffffff";
 }
 
-// Check if dark theme is active when page loads
 function checkDarkTheme() {
     let darkThemeActive = localStorage.getItem("darkTheme");
     if (darkThemeActive === "true") {
@@ -89,9 +88,5 @@ function checkDarkTheme() {
     }
 }
 
-// Call this when page loads
 checkDarkTheme();
-
-
-// Show coins when page loads
 updateCoinDisplay();
